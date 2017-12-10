@@ -14,6 +14,7 @@ after the bracket substitution:
 DEBUG`Some object: ${obj}o and some text: ${str}s or a number ${i}n`
 ```
 
+### Multiline
 If you use multiline, the 1st line used to specify tags when to actually make the log or not:
 ```javascript
 DEBUG.myTag = true
@@ -40,17 +41,22 @@ DEBUG`events popups error
 	This popup is not created`
 ```
 
+### Colors (inline css)
 There is also console's css support by using ${}c substitution:
 ```javascript
 DEBUG`The color is ${'color:orange'}cORANGE`
 ```
 
-The is a c property on DEBUG to store pre-cooked css strings to use with DEBUG message (see above)
+There is a c property on DEBUG to store pre-cooked css strings to use with DEBUG message
 ```javascript
-DEBUG`The object type is ${DEBUG.c.stamp}c ${obj.constructor.name}`
+DEBUG.c.stamp = 'background: purple; color: white; font-weight: bold; font-size: smaller;'
+DEBUG.c.type = obj => `color: ${typeof obj == 'undefined' ? 'grey' : 'blue' };`
+
+DEBUG`The object type is ${DEBUG.c.stamp}c ${obj.constructor.name} ${DEBUG.c.type(obj)}c${obj}o`
 ```
 
-Finally, to completely disable DEBUG without clearing each call in you code:
+## Silent disabling
+Finally, to completely disable DEBUG without clearing each call in your code:
 ```javascript
 var DEBUG = window.DEBUG = o=>o
 ```
